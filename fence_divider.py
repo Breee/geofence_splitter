@@ -1,15 +1,6 @@
 from geofencehelper import  GeofenceHelper
 import random
 import os
-import shutil
-
-
-def flatten(S):
-    if S == []:
-        return S
-    if isinstance(S[0], list):
-        return flatten(S[0]) + flatten(S[1:])
-    return S[:1] + flatten(S[1:])
 
 def dump_to_geojson(fences):
     geojson = '['
@@ -26,14 +17,20 @@ def dump_to_geojson(fences):
 
 if __name__ == '__main__':
 
+    # geofence file with exactly 4 coords.
     FILE = "/home/bree/repos/geofence_divider/geofence.txt"
     FENCE_NAME = '[testfence]'
+    # name of the resulting geofences, they will be enumerated like this: fr_quest1, fr_quest2, fr_quest3, ...
     OUT_FENCE_BASENAE = 'fr_quest'
 
-    geo = GeofenceHelper(geofencefile=FILE)
-    testfence = geo.geofence_to_coordinates[FENCE_NAME]
+    # 1 split = 4 fences, 2 splits = 16 fences, 3 splits = 64 fences, etc.
+    SPLITS = 3
+
+    geofence_helper = GeofenceHelper(geofencefile=FILE)
+    geofence = geofence_helper.geofence_to_coordinates[FENCE_NAME]
+
     splitted_fences = []
-    geo.divide_recursively(testfence, 3, splitted_fences)
+    geofence_helper.divide_recursively(geofence, SPLITS, splitted_fences)
     f_id = 1
     if not os.path.exists('./out'):
         os.mkdir('./out')
