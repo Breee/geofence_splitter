@@ -40,3 +40,10 @@ At the bottom you see at the top of main function
 - FENCE_NAME is the name of the geofence, including the brackets
 - OUT_FENCE_BASENAME is the basename of the generated geofences.
 - SPLITS is the amount of splits made. One split devides a geofence into 4 geofences. Two splits do the same recursively to every of the 4 geofences, so we end up with a total of 16. Three splits repeat and you end up with 64. Four will be 256.
+
+5. run the script
+`python3 fence_divider.py`
+
+The output files are located in directory `out`
+there is also a file `geojson.json`  which you can load on this site: [http://geo.jasparke.net/](http://geo.jasparke.net/) 
+use it to verify that everything went as expected.
